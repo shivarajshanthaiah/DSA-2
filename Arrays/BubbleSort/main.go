@@ -9,12 +9,12 @@ func main() {
 
 }
 
-// descending
+//Pushing big elements to the end
 // time complexity => O(n^2)
 func bubbleSort(nums []int) []int {
 	for i := 0; i < len(nums); i++ {
 		for j := 0; j < len(nums)-i-1; j++ {
-			if nums[j] < nums[j+1] {
+			if nums[j] > nums[j+1] {
 				nums[j], nums[j+1] = nums[j+1], nums[j]
 			}
 		}
@@ -22,7 +22,7 @@ func bubbleSort(nums []int) []int {
 	return nums
 }
 
-// ascending and this is just optimised sorting method for the above algorithm which reduces time complexity
+// This is just optimised sorting method for the above algorithm which reduces time complexity
 // time complexity => O(n)
 func optimizesBubbleSort(nums []int) []int {
 	for i := 0; i < len(nums); i++ {
