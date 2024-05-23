@@ -3,21 +3,19 @@ package main
 import "fmt"
 
 func main() {
-	arr := []int{29, 40, 44, 25, 58, 66}
-	fLar := arr[0]
-	secLar := arr[1]
+	arr := []int{}
 
-	if fLar < secLar {
-		fLar, secLar = secLar, fLar
-	}
-
-	for i := 2; i < len(arr); i++ {
-		if arr[i] > fLar {
-			secLar, fLar = fLar, arr[i]
-		} else if arr[i] > secLar && arr[i] != fLar {
-			secLar = arr[i]
+	for i := 7; i < 100; i++ {
+		if i%7 == 0 {
+			arr = append(arr, i)
 		}
 	}
-	fmt.Println(secLar)
+	fmt.Println(arr)
+
+	sqr := make(map[int]int)
+	for _, val := range arr {
+		sqr[val] = val * val
+	}
+	fmt.Println(sqr)
 
 }
