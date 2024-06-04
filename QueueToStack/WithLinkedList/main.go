@@ -106,4 +106,5 @@ func main() {
 
 	stack.pop()
 	stack.display()
+	fmt.Println(stack.isEmpty())
 }

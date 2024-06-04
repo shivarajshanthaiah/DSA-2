@@ -38,9 +38,6 @@ func (q *Queue) display() {
 func (q *Queue) dequeue() int{
 	frontValue := q.front.value
 	q.front= q.front.next
-	if q.front != nil{
-		q.rear = nil
-	}
 	q.size--
 
 	return frontValue
