@@ -2,90 +2,65 @@ package main
 
 import "fmt"
 
-type Node struct {
-	value int
-	next  *Node
-}
-type Stack struct {
-	top  *Node
-	size int
-}
-
-func (s *Stack) push(value int) {
-	newNode := &Node{
-		value: value,
-		next:  s.top,
-	}
-	s.top = newNode
-	s.size++
-}
-
-func (s *Stack) display() {
-	temp := s.top
-	for temp != nil {
-		fmt.Println(temp.value)
-		temp = temp.next
-	}
-}
-
-func (s *Stack) pop() int {
-	val := s.top.value
-	s.top = s.top.next
-	s.size--
-	return val
-
-}
-
-type Queue struct {
-	head *Node
-	tail *Node
-	size int
-}
-
-func (q *Queue) enqueue(value int) {
-	newNode := &Node{value: value}
-	if q.tail != nil {
-		q.tail.next = newNode
-	}
-	q.tail = newNode
-	if q.head == nil {
-		q.head = newNode
-	}
-	q.size++
-}
-
-func (s *Stack) isEmpty() bool {
-	return s.top == nil
-}
-
-func (q *Queue) display() {
-	temp := q.head
-	for temp != nil {
-		fmt.Println(temp.value)
-		temp = temp.next
-	}
-}
-
-func convertToQueue(stack Stack) *Queue {
-	q := &Queue{}
-	tempStack := &Stack{}
-
-	for !stack.isEmpty() {
-		tempStack.push(stack.pop())
-	}
-	for !tempStack.isEmpty() {
-		q.enqueue(tempStack.pop())
-	}
-	return q
-}
 func main() {
-	s := &Stack{}
-	s.push(20)
-	s.push(40)
-	s.push(50)
-	s.push(10)
-	s.display()
+	arr := []int{1, 2, 33, 2, 321, 4, 35, 6, 66, 5, 43, 34, 34, 67, 28}
+	fmt.Println(mergeSort(arr))
+	fmt.Println(quickSort(arr))
+}
 
-	q := convertToQueue(*s)
-	q.display()
+func mergeSort(arr []int) []int {
+	if len(arr) == 1 {
+		return arr
+	}
+
+	mid := len(arr) / 2
+	left := mergeSort(arr[:mid])
+	right := mergeSort(arr[mid:])
+
+	return merge(left, right)
+}
+
+func merge(left, right []int) []int {
+	combined := []int{}
+	i, j := 0, 0
+
+	for i < len(left) && j < len(right) {
+		if left[i] < right[j] {
+			combined = append(combined, left[i])
+			i++
+		} else {
+			combined = append(combined, right[j])
+			j++
+		}
+	}
+
+	if i < len(left) {
+		combined = append(combined, left[i:]...)
+	}
+	if j < len(right) {
+		combined = append(combined, right[j:]...)
+	}
+	return combined
+}
+
+func quickSort(arr []int) []int {
+	if len(arr) <= 1 {
+		return arr
+	}
+
+	pivot := arr[len(arr)/2]
+	left, mid, right := []int{}, []int{}, []int{}
+
+	for _, val := range arr {
+		if val < pivot {
+			left = append(left, val)
+		} else if val == pivot {
+			mid = append(mid, val)
+		} else {
+			right = append(right, val)
+		}
+	}
+	left = quickSort(left)
+	right = quickSort(right)
+	return append(append(left, mid...), right...)
 }

@@ -26,16 +26,17 @@ func (s *Stack) display() {
 	}
 }
 
+
 func (s *Stack) popRandomNode(index int) {
 	if index < 0 || index >= s.size {
 		return
 	}
 
-	// if index == 0 {
-	// 	s.top = s.top.next
-	// 	s.size--
-	// 	return
-	// }
+	if index == 0 {
+		s.top = s.top.next
+		s.size--
+		return
+	}
 
 	current := s.top
 	for i := 0; i < index-1; i++ {
